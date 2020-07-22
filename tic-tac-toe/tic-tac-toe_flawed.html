@@ -76,13 +76,13 @@ div.row {
         <div class="cell colRight row3 diqgForward" ></div> <!--diagonal needs fixed-->
     </div>
 	<div class="row">
-        <p class="instructions">Player <span class="who">X</span>, your turn.<br>Click on any square.</p> <!--diagonal needs fixed-->
+        <p class="instructions">Player <span class="who">X</span>, your turn.<br>Click on any square.</p>
 		<input class="resetButton hidden" type="button" value="Play Again" onclick="resetGame();">
 	</div>
 </div>
 
 <script type="text/javascript">
-directions = [".colLeft",".colCenter",".colRight",".row1",".row2",".row3",".diqgForward",".diagBack"];  //no let
+directions = [".colLeft",".colCenter",".colRight",".row1",".row2",".row3",".diqgForward",".diagBack"];  //no var
 
 function initializeGame() {
     player = "X";       // no var

@@ -91,7 +91,7 @@ div.row {
 </div>
 
 <script type="text/javascript">
-directions = [".colLeft",".colCenter",".colRight",".row1",".row2",".row3",".diqgForward",".diagBack"];  //no var
+solutions = [".colLeft",".colCenter",".colRight",".row1",".row2",".row3",".diqgForward",".diagBack"];  //no var
 
 function initializeGame() {
     $(".who").text("X")       // FIXED change .who to X to fix instructions
@@ -108,7 +108,7 @@ function isWinner(selector) {
 
 function findWinner() {
     for (i = 0; i<8; i++) {                 // FIXED loop iterates one too few times
-      if (isWinner(directions[i])) return directions[i];
+      if (isWinner(solutions[i])) return solutions[i];
     }
     return "";
 }

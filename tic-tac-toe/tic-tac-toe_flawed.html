@@ -107,6 +107,7 @@ function isWinner(selector) {
 }
 
 function findWinner() {
+    var i;      // ensures i is local
     for (i = 0; i<8; i++) {                 // FIXED loop iterates one too few times
       if (isWinner(solutions[i])) return solutions[i];
     }

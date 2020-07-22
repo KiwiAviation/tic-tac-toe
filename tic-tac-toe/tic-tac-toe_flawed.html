@@ -73,7 +73,7 @@ div.row {
     <div class="row">
         <div class="cell colLeft row3 diqgForward" ></div>
         <div class="cell colCenter row3" ></div>
-        <div class="cell colRight row3 diqgForward" ></div> <!--diagonal needs fixed-->
+        <div class="cell colRight row3 diagBack" ></div> <!--diagonal needs fixed-->
     </div>
 	<div class="row">
         <p class="instructions">Player <span class="who">X</span>, your turn.<br>Click on any square.</p>
@@ -97,7 +97,7 @@ function isWinner(selector) {
 }
 
 function findWinner() {
-    for (i = 1; i<7; i++) {
+    for (i = 1; i<8; i++) {                 //loop iterates one too few times
       if (isWinner(directions[i])) return directions[i];
     }
     return "";

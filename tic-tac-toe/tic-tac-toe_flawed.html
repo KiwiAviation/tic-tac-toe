@@ -73,7 +73,7 @@ div.row {
     <div class="row">
         <div class="cell colLeft row3 diqgForward" ></div>
         <div class="cell colCenter row3" ></div>
-        <div class="cell colRight row3 diagBack" ></div> <!-- FIXED git diagonal needs fixed-->
+        <div class="cell colRight row3 diagBack" ></div> <!-- FIXED diagonal needs fixed-->
     </div>
 	<div class="row">
         <p class="instructions">Player <span class="who">X</span>, your turn.<br>Click on any square.</p>
@@ -85,6 +85,7 @@ div.row {
 directions = [".colLeft",".colCenter",".colRight",".row1",".row2",".row3",".diqgForward",".diagBack"];  //no var
 
 function initializeGame() {
+    $(".who").text("X")       // change .who to X to fix instructions
     player = "X";       // no var
 	moveCount = 0;      // no var
 }
@@ -104,7 +105,7 @@ function findWinner() {
 }
 
 function resetGame() {
-	initializeGame();       // change .who to X to fix instructions
+    initializeGame();
 	$(".cell").text("");
 	$(".cell").removeClass("win");
 	$(".cell").removeClass("lose");

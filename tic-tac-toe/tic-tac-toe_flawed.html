@@ -1,0 +1,134 @@
+<!-- Recruiting Candidate Challenge - v1.0, Craig Jones 7/1/2015.
+
+1. There is a major problem with how the results of a game are determined. Find the problem and fix it.
+2. There are additional problems involving clicks that should not be allowed. Find the problems and add code to prevent them.
+3. There is a problem with the instructions sometimes being wrong.
+4. The game board has borders all the way around the outside, but a real tic-tac-toe board should only have inner-borders (so that it looks like a hash symbol). Fix that.
+5. Is there a better name for the directions[] list?
+6. Please critique the decisions that were made when coding up the CSS section.
+7. Is there any code that isn't idiomatic JavaScript?
+8. The HTML section is not well-formed. (Surprisingly, Chrome is forgiving, anyway.) What is the easiest way to find the transgressions?
+
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js" ></script>
+</head>
+<body>
+<style>
+
+div.row {
+    clear: both;
+}
+.resetButton {
+    margin: 20px 100px;
+}
+.cell {
+    width: 70px;
+    height: 70px;
+    float: left;
+	font-size: 50px;
+    padding: 15px 10px 0 10px;
+    text-align: center;
+}
+.win {
+    color: white;
+    background-color: green;
+}
+.lose {
+    color: red;
+    background-color: white;
+}
+.cell {
+    border: 2px solid black;
+}
+.hidden {
+	visibility: hidden;
+}
+.gameboard {
+	width: 300px;
+	margin: 0 auto;
+}
+.instructions {
+    font-size: 20px;
+    text-align: center;
+}
+</style>
+<h1><center>Let's play Tic Tac Toe</h1></center>
+<div class="gameboard">
+    <div class="row">
+        <div class="cell colLeft row1 diagBack" ></div>
+        <div class="cell colCenter row1" ></div>
+        <div class="cell colRight row1 diqgForward" ></div>
+    </div>
+    <div class="row">
+        <div class="cell colLeft row2" ></div>
+        <div class="cell colCenter row2 diqgForward diagBack"></div>
+        <div class="cell colRight row2" ></div>
+    </div>
+    <div class="row">
+        <div class="cell colLeft row3 diqgForward" ></div>
+        <div class="cell colCenter row3" ></div>
+        <div class="cell colRight row3 diqgForward" ></div>
+    </div>
+	<div class="row">
+        <p class="instructions">Player <span class="who">X</span>, your turn.<br>Click on any square.</p>
+		<input class="resetButton hidden" type="button" value="Play Again" onclick="resetGame();">
+	</div>
+</div>
+
+<script type="text/javascript">
+directions = [".colLeft",".colCenter",".colRight",".row1",".row2",".row3",".diqgForward",".diagBack"];
+
+function initializeGame() {
+	player = "X";
+	moveCount = 0;
+}
+
+initializeGame();
+
+function isWinner(selector) {
+    var sequence = $(selector).text();
+    return (sequence == "OOO" || sequence == "XXX");
+}
+
+function findWinner() {
+    for (i = 1; i<7; i++) {
+      if (isWinner(directions[i])) return directions[i];
+    }
+    return "";
+}
+
+function resetGame() {
+	initializeGame();
+	$(".cell").text("");
+	$(".cell").removeClass("win");
+	$(".cell").removeClass("lose");
+    $(".instructions").removeClass("hidden");
+    $(".resetButton").addClass("hidden");
+}
+function gameOver(cellsToHighlight,gameResult) {
+    $(cellsToHighlight).addClass(gameResult);
+    $(".instructions").addClass("hidden");
+	$(".resetButton").removeClass("hidden");
+}
+$(".cell").click(function() {
+    $(this).text(player);
+    if (player == "X") { player = "O"; } else { player = "X"; }
+    $(".who").text(player);
+    moveCount++;
+    var winningSequence = findWinner();
+    if (winningSequence != "") {
+		gameOver(winningSequence,"win");
+    } else if (moveCount >= 9) {
+		gameOver(".cell","lose");
+    }
+});
+</script>
+
+</body>
+</html>

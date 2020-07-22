@@ -43,19 +43,28 @@ div.row {
     color: red;
     background-color: white;
 }
-.cell {             /* Could be added to above .cell */
-    border: 2px solid black;
-}
 .hidden {
 	visibility: hidden;
 }
-.gameboard {        /* Possibly add code to remove border (?) */
+.gameboard {
 	width: 300px;
 	margin: 0 auto;
 }
 .instructions {
     font-size: 20px;
     text-align: center;
+}
+.colLeft {
+    border-right: 2px solid black;
+}
+.colRight {
+    border-left: 2px solid black;
+}
+.row1 {
+    border-bottom: 2px solid black;
+}
+.row3 {
+    border-top: 2px solid black;
 }
 </style>
 <h1><center>Let's play Tic Tac Toe</h1></center> <!--format-->
@@ -85,7 +94,7 @@ div.row {
 directions = [".colLeft",".colCenter",".colRight",".row1",".row2",".row3",".diqgForward",".diagBack"];  //no var
 
 function initializeGame() {
-    $(".who").text("X")       // change .who to X to fix instructions
+    $(".who").text("X")       // FIXED change .who to X to fix instructions
     player = "X";       // no var
 	moveCount = 0;      // no var
 }

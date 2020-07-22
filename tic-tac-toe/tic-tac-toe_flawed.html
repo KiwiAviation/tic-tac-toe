@@ -43,13 +43,13 @@ div.row {
     color: red;
     background-color: white;
 }
-.cell {
+.cell {             /* Could be added to above .cell */
     border: 2px solid black;
 }
 .hidden {
 	visibility: hidden;
 }
-.gameboard {
+.gameboard {        /* Possibly add code to remove border (?) */
 	width: 300px;
 	margin: 0 auto;
 }
@@ -58,7 +58,7 @@ div.row {
     text-align: center;
 }
 </style>
-<h1><center>Let's play Tic Tac Toe</h1></center>
+<h1><center>Let's play Tic Tac Toe</h1></center> <!--format-->
 <div class="gameboard">
     <div class="row">
         <div class="cell colLeft row1 diagBack" ></div>
@@ -73,26 +73,26 @@ div.row {
     <div class="row">
         <div class="cell colLeft row3 diqgForward" ></div>
         <div class="cell colCenter row3" ></div>
-        <div class="cell colRight row3 diqgForward" ></div>
+        <div class="cell colRight row3 diqgForward" ></div> <!--diagonal needs fixed-->
     </div>
 	<div class="row">
-        <p class="instructions">Player <span class="who">X</span>, your turn.<br>Click on any square.</p>
+        <p class="instructions">Player <span class="who">X</span>, your turn.<br>Click on any square.</p> <!--diagonal needs fixed-->
 		<input class="resetButton hidden" type="button" value="Play Again" onclick="resetGame();">
 	</div>
 </div>
 
 <script type="text/javascript">
-directions = [".colLeft",".colCenter",".colRight",".row1",".row2",".row3",".diqgForward",".diagBack"];
+directions = [".colLeft",".colCenter",".colRight",".row1",".row2",".row3",".diqgForward",".diagBack"];  //no let
 
 function initializeGame() {
-	player = "X";
-	moveCount = 0;
+    player = "X";       // no var
+	moveCount = 0;      // no var
 }
 
 initializeGame();
 
 function isWinner(selector) {
-    var sequence = $(selector).text();
+    var sequence = $(selector).text();      // var instead of let when sequence is only used inside of function
     return (sequence == "OOO" || sequence == "XXX");
 }
 
@@ -104,7 +104,7 @@ function findWinner() {
 }
 
 function resetGame() {
-	initializeGame();
+	initializeGame();       // change .who to X to fix instructions
 	$(".cell").text("");
 	$(".cell").removeClass("win");
 	$(".cell").removeClass("lose");
@@ -117,11 +117,11 @@ function gameOver(cellsToHighlight,gameResult) {
 	$(".resetButton").removeClass("hidden");
 }
 $(".cell").click(function() {
-    $(this).text(player);
+    $(this).text(player);       // allows player to play on used square and when game has ended
     if (player == "X") { player = "O"; } else { player = "X"; }
     $(".who").text(player);
     moveCount++;
-    var winningSequence = findWinner();
+    var winningSequence = findWinner();     // var instead of let when winningSequence is only used in function
     if (winningSequence != "") {
 		gameOver(winningSequence,"win");
     } else if (moveCount >= 9) {

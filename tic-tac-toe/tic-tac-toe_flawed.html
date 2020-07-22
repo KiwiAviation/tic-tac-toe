@@ -48,7 +48,7 @@ div.row {
 }
 .gameboard {
 	width: 300px;
-	margin: 0 auto;
+	margin: auto;      /* 0 not needed (?) */
 }
 .instructions {
     font-size: 20px;
@@ -91,18 +91,18 @@ div.row {
 </div>
 
 <script type="text/javascript">
-solutions = [".colLeft",".colCenter",".colRight",".row1",".row2",".row3",".diqgForward",".diagBack"];  //no var
+var solutions = [".colLeft",".colCenter",".colRight",".row1",".row2",".row3",".diqgForward",".diagBack"];  //FIXED no var
 
 function initializeGame() {
-    $(".who").text("X")       // FIXED change .who to X to fix instructions
-    player = "X";       // no var
-	moveCount = 0;      // no var
+    $(".who").text("X");       // FIXED change .who to X to fix instructions
+    player = "X";
+	moveCount = 0;
 }
 
 initializeGame();
 
 function isWinner(selector) {
-    var sequence = $(selector).text();      // var instead of let when sequence is only used inside of function
+    let sequence = $(selector).text();      //FIXED var instead of let when sequence is only used inside of function
     return (sequence == "OOO" || sequence == "XXX");
 }
 
@@ -132,7 +132,7 @@ $(".cell").click(function() {
         if (player == "X") { player = "O"; } else { player = "X"; }
         $(".who").text(player);
         moveCount++;
-        var winningSequence = findWinner();     // var instead of let when winningSequence is only used in function
+        let winningSequence = findWinner();     // FIXED var instead of let when winningSequence is only used in function
         if (winningSequence != "") {
             gameOver(winningSequence,"win");
         } else if (moveCount >= 9) {

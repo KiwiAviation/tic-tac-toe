@@ -13,140 +13,156 @@
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="utf-8">
+    <meta charset="utf-8">
 
-	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js" ></script>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
 </head>
+
 <body>
-<style>
-
-div.row {
-    clear: both;
-}
-.resetButton {
-    margin: 20px 100px;
-}
-.cell {
-    width: 70px;
-    height: 70px;
-    float: left;
-	font-size: 50px;
-    padding: 15px 10px 0 10px;
-    text-align: center;
-}
-.win {
-    color: white;
-    background-color: green;
-}
-.lose {
-    color: red;
-    background-color: white;
-}
-.hidden {
-	visibility: hidden;
-}
-.gameboard {
-	width: 300px;
-	margin: auto;      /* 0 not needed (?) */
-}
-.instructions {
-    font-size: 20px;
-    text-align: center;
-}
-.colLeft {
-    border-right: 2px solid black;
-}
-.colRight {
-    border-left: 2px solid black;
-}
-.row1 {
-    border-bottom: 2px solid black;
-}
-.row3 {
-    border-top: 2px solid black;
-}
-h1 {
-    text-align: center;
-}
-</style>
-<h1>Let's play Tic Tac Toe</h1> <!--format-->
-<div class="gameboard">
-    <div class="row">
-        <div class="cell colLeft row1 diagBack" ></div>
-        <div class="cell colCenter row1" ></div>
-        <div class="cell colRight row1 diqgForward" ></div>
-    </div>
-    <div class="row">
-        <div class="cell colLeft row2" ></div>
-        <div class="cell colCenter row2 diqgForward diagBack"></div>
-        <div class="cell colRight row2" ></div>
-    </div>
-    <div class="row">
-        <div class="cell colLeft row3 diqgForward" ></div>
-        <div class="cell colCenter row3" ></div>
-        <div class="cell colRight row3 diagBack" ></div> <!-- FIXED diagonal needs fixed-->
-    </div>
-	<div class="row">
-        <p class="instructions">Player <span class="who">X</span>, your turn.<br>Click on any square.</p>
-		<input class="resetButton hidden" type="button" value="Play Again" onclick="resetGame();">
-	</div>
-</div>
-
-<script type="text/javascript">
-var solutions = [".colLeft",".colCenter",".colRight",".row1",".row2",".row3",".diqgForward",".diagBack"];  //FIXED no var
-var player;
-var moveCount;
-
-function initializeGame() {
-    $(".who").text("X");       // FIXED change .who to X to fix instructions
-    player = "X";
-	moveCount = 0;
-}
-
-initializeGame();
-
-function isWinner(selector) {
-    let sequence = $(selector).text();      //FIXED var instead of let when sequence is only used inside of function
-    return (sequence == "OOO" || sequence == "XXX");
-}
-
-function findWinner() {
-    var i;      // ensures i is local
-    for (i = 0; i<8; i++) {                 // FIXED loop iterates one too few times
-      if (isWinner(solutions[i])) return solutions[i];
-    }
-    return "";
-}
-
-function resetGame() {
-    initializeGame();
-	$(".cell").text("");
-	$(".cell").removeClass("win");
-	$(".cell").removeClass("lose");
-    $(".instructions").removeClass("hidden");
-    $(".resetButton").addClass("hidden");
-}
-function gameOver(cellsToHighlight,gameResult) {
-    $(cellsToHighlight).addClass(gameResult);
-    $(".instructions").addClass("hidden");
-	$(".resetButton").removeClass("hidden");
-}
-$(".cell").click(function() {
-    if ($(this).text() == "" && findWinner() == "") {       // might be better way then calling findWinner() every click
-        $(this).text(player);       // FIXED allows player to play on used square and when game has ended
-        if (player == "X") { player = "O"; } else { player = "X"; }
-        $(".who").text(player);
-        moveCount++;
-        let winningSequence = findWinner();     // FIXED var instead of let when winningSequence is only used in function
-        if (winningSequence != "") {
-            gameOver(winningSequence,"win");
-        } else if (moveCount >= 9) {
-            gameOver(".cell","lose");
+    <style>
+        div.row {
+            clear: both;
         }
-    }
-});
-</script>
+
+        .resetButton {
+            margin: 20px 100px;
+        }
+
+        .cell {
+            width: 70px;
+            height: 70px;
+            float: left;
+            font-size: 50px;
+            padding: 15px 10px 0 10px;
+            text-align: center;
+        }
+
+        .win {
+            color: white;
+            background-color: green;
+        }
+
+        .lose {
+            color: red;
+            background-color: white;
+        }
+
+        .hidden {
+            visibility: hidden;
+        }
+
+        .gameboard {
+            width: 300px;
+            margin: auto;
+            /* 0 not needed (?) */
+        }
+
+        .instructions {
+            font-size: 20px;
+            text-align: center;
+        }
+
+        .colLeft {
+            border-right: 2px solid black;
+        }
+
+        .colRight {
+            border-left: 2px solid black;
+        }
+
+        .row1 {
+            border-bottom: 2px solid black;
+        }
+
+        .row3 {
+            border-top: 2px solid black;
+        }
+
+        h1 {
+            text-align: center;
+        }
+    </style>
+    <h1>Let's play Tic Tac Toe</h1>
+    <!--format-->
+    <div class="gameboard">
+        <div class="row">
+            <div class="cell colLeft row1 diagBack"></div>
+            <div class="cell colCenter row1"></div>
+            <div class="cell colRight row1 diqgForward"></div>
+        </div>
+        <div class="row">
+            <div class="cell colLeft row2"></div>
+            <div class="cell colCenter row2 diqgForward diagBack"></div>
+            <div class="cell colRight row2"></div>
+        </div>
+        <div class="row">
+            <div class="cell colLeft row3 diqgForward"></div>
+            <div class="cell colCenter row3"></div>
+            <div class="cell colRight row3 diagBack"></div> <!-- FIXED diagonal needs fixed-->
+        </div>
+        <div class="row">
+            <p class="instructions">Player <span class="who">X</span>, your turn.<br>Click on any square.</p>
+            <input class="resetButton hidden" type="button" value="Play Again" onclick="resetGame();">
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        var solutions = [".colLeft", ".colCenter", ".colRight", ".row1", ".row2", ".row3", ".diqgForward", ".diagBack"];  //FIXED no var
+        var player;
+        var moveCount;
+
+        function initializeGame() {
+            $(".who").text("X");       // FIXED change .who to X to fix instructions
+            player = "X";
+            moveCount = 0;
+        }
+
+        initializeGame();
+
+        function isWinner(selector) {
+            let sequence = $(selector).text();      //FIXED var instead of let when sequence is only used inside of function
+            return (sequence == "OOO" || sequence == "XXX");
+        }
+
+        function findWinner() {
+            var i;      // ensures i is local
+            for (i = 0; i < 8; i++) {                 // FIXED loop iterates one too few times
+                if (isWinner(solutions[i])) return solutions[i];
+            }
+            return "";
+        }
+
+        function resetGame() {
+            initializeGame();
+            $(".cell").text("");
+            $(".cell").removeClass("win");
+            $(".cell").removeClass("lose");
+            $(".instructions").removeClass("hidden");
+            $(".resetButton").addClass("hidden");
+        }
+        function gameOver(cellsToHighlight, gameResult) {
+            $(cellsToHighlight).addClass(gameResult);
+            $(".instructions").addClass("hidden");
+            $(".resetButton").removeClass("hidden");
+        }
+        $(".cell").click(function () {
+            if ($(this).text() == "" && findWinner() == "") {       // might be better way then calling findWinner() every click
+                $(this).text(player);       // FIXED allows player to play on used square and when game has ended
+                if (player == "X") { player = "O"; } else { player = "X"; }
+                $(".who").text(player);
+                moveCount++;
+                let winningSequence = findWinner();     // FIXED var instead of let when winningSequence is only used in function
+                if (winningSequence != "") {
+                    gameOver(winningSequence, "win");
+                } else if (moveCount >= 9) {
+                    gameOver(".cell", "lose");
+                }
+            }
+        });
+    </script>
 
 </body>
+
 </html>
